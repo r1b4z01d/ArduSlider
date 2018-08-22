@@ -1,4 +1,4 @@
-package com.r1b4z01d.myapplication;
+package com.r1b4z01d.arduslead;
 
 import org.junit.Test;
 

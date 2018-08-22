@@ -1,5 +1,6 @@
-package com.r1b4z01d.myapplication;
+package com.r1b4z01d.arduslead;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     // GUI Components
     private TextView mBluetoothStatus;
-    private TextView mReadBuffer;
     private EditText ShutterSpeed;
     private EditText msOfCapture;
     private EditText bufferClear;
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mBTArrayAdapter;
     private ListView mDevicesListView;
     private CheckBox mLED1;
-
     private Handler mHandler; // Our main handler that will receive callback notifications
     private ConnectedThread mConnectedThread; // bluetooth background worker thread to send and receive data
     private BluetoothSocket mBTSocket = null; // bi-directional client-to-client data path
@@ -63,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mBluetoothStatus = findViewById(R.id.bluetoothStatus);
-        mReadBuffer = findViewById(R.id.readBuffer);
         mOnBtn = findViewById(R.id.on);
         mOffBtn = findViewById(R.id.off);
         mListPairedDevicesBtn = findViewById(R.id.PairedBtn);
@@ -81,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         photo = findViewById(R.id.photo);
         UserControls = findViewById(R.id.UserControls);
         UserControls.setVisibility(View.GONE);
-
 
         mBTArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         mBTAdapter = BluetoothAdapter.getDefaultAdapter(); // get a handle on the bluetooth radio
@@ -106,11 +104,24 @@ public class MainActivity extends AppCompatActivity {
                     String readMessage = null;
                     try {
                         readMessage = new String((byte[]) msg.obj, "UTF-8");
+                        String [] dataSlices = null;
+                        if(readMessage.length()>=2){
+                            dataSlices = readMessage.split("\n", -2);
+                            for(String dataSlice:dataSlices) {
+                                String dataFlag = Character.toString(dataSlice.charAt(0)); //takes first letter
+                                String data = dataSlice.substring(1); //takes rest of sentence
+                                if(dataFlag.equals("S"))ShutterSpeed.setText(data);
+                                if(dataFlag.equals("T"))msOfCapture.setText(data);
+                                if(dataFlag.equals("B"))bufferClear.setText(data);
+                                if(dataFlag.equals("D"))mmOfTravel.setText(data);
+                                if(dataFlag.equals("P"))photo.setText(data);
+                            }
+                        }
+
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    parseData(readMessage);
-                    mReadBuffer.setText(readMessage);
+
                 }
 
                 if(msg.what == CONNECTING_STATUS){
@@ -156,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFocusChange(View arg0, boolean hasFocus) {
                     if(!hasFocus){
                         mConnectedThread.write("B"+bufferClear.getText());
+
                     }
                 }
             });
@@ -199,30 +211,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-
-
-    private void parseData(String readMessages){
-        String [] dataSlices = readMessages.split("\n", -2);
-        //int DaLength = dataSlices.length;
-        //
-        for(String dataSlice:dataSlices) {
-            if (dataSlice.length()>=2) {
-                String dataFlag = Character.toString(dataSlice.charAt(0)); //takes first letter
-                System.out.println("flag: "+dataFlag);
-                String data = dataSlice.substring(1); //takes rest of sentence
-                System.out.println(data);
-
-                if(dataFlag.equals("S"))ShutterSpeed.setText(data);
-                if(dataFlag.equals("T"))msOfCapture.setText(data);
-                if(dataFlag.equals("B"))bufferClear.setText(data);
-                if(dataFlag.equals("D"))mmOfTravel.setText(data);
-                if(dataFlag.equals("P"))photo.setText(data);
-            }
-        }
-    }
-
-
 
     private void bluetoothOn(View view){
         if (!mBTAdapter.isEnabled()) {
@@ -385,7 +373,8 @@ public class MainActivity extends AppCompatActivity {
                     // Read from the InputStream
                     bytes = mmInStream.available();
                     if(bytes != 0) {
-                        SystemClock.sleep(100); //pause and wait for rest of data. Adjust this depending on your sending speed.
+                        buffer =  new byte[1024];
+                        SystemClock.sleep(200); //pause and wait for rest of data. Adjust this depending on your sending speed.
                         bytes = mmInStream.available(); // how many bytes are ready to be read?
                         bytes = mmInStream.read(buffer, 0, bytes); // record how many bytes we actually read
                         mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
@@ -393,7 +382,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-
                     break;
                 }
             }

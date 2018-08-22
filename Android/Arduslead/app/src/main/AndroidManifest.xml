@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.r1b4z01d.myapplication" >
+    package="com.r1b4z01d.arduslead" >
 
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
