@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText bufferClear;
     private EditText mmOfTravel;
     private TextView photo;
+    private TextView photoCount;
+    private ProgressBar photoProgressBar;
     private Button mOnBtn;
     private Button mOffBtn;
     private LinearLayout UserControls;
@@ -78,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         bufferClear = findViewById(R.id.bufferClear);
         mmOfTravel = findViewById(R.id.mmOfTravel);
         photo = findViewById(R.id.photo);
+        photoCount = findViewById(R.id.photoCount);
+        photoProgressBar = findViewById(R.id.photoProgressBar);
         UserControls = findViewById(R.id.UserControls);
         UserControls.setVisibility(View.GONE);
 
@@ -110,11 +115,29 @@ public class MainActivity extends AppCompatActivity {
                             for(String dataSlice:dataSlices) {
                                 String dataFlag = Character.toString(dataSlice.charAt(0)); //takes first letter
                                 String data = dataSlice.substring(1); //takes rest of sentence
-                                if(dataFlag.equals("S"))ShutterSpeed.setText(data);
-                                if(dataFlag.equals("T"))msOfCapture.setText(data);
-                                if(dataFlag.equals("B"))bufferClear.setText(data);
-                                if(dataFlag.equals("D"))mmOfTravel.setText(data);
-                                if(dataFlag.equals("P"))photo.setText(data);
+                                if (dataFlag.equals("S"))
+                                    ShutterSpeed.setText(data.toString().trim());
+                                if (dataFlag.equals("T"))
+                                    msOfCapture.setText(data.toString().trim());
+                                if (dataFlag.equals("B"))
+                                    bufferClear.setText(data.toString().trim());
+                                if (dataFlag.equals("D"))
+                                    mmOfTravel.setText(data.toString().trim());
+                                if (dataFlag.equals("P")) {
+                                    photo.setText(data.toString().trim());
+                                    photoProgressBar.setProgress(Integer.parseInt(data.toString().trim()));
+                                }
+                                if (dataFlag.equals("C")) {
+                                    photoCount.setText(data.toString().trim());
+                                    photoProgressBar.setMax(Integer.parseInt(data.toString().trim()));
+                                }
+                                if (dataFlag.equals("R")) {
+                                    if (Integer.parseInt(data.toString().trim()) == 0) {
+                                        mLED1.setChecked(false);
+                                    } else {
+                                        mLED1.setChecked(true);
+                                    }
+                                }
                             }
                         }
 

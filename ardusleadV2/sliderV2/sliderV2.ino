@@ -114,9 +114,9 @@ void sendData(String flag, String data){
 }
 
 void sendDataRefresh(){
-  sendData("T",String(msOfCapture).substring(0,String(msOfCapture).indexOf('.')));
+  sendData("T",String(msOfCapture));
   sendData("P",String(photo));
-  sendData("C",String(numPhotos).substring(0,String(numPhotos).indexOf('.')));
+  sendData("C",String(numPhotos));
   sendData("R",String(isRunning));
   sendData("S",String(shutterSpeed));
   sendData("B",String(bufferClear));
