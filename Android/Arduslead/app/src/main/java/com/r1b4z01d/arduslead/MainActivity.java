@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText mmOfTravel;
     private TextView photo;
     private TextView photoCount;
+    private TextView VideoSeconds;
+    private TextView MMPerPhoto;
     private ProgressBar photoProgressBar;
     private Button mOnBtn;
     private Button mOffBtn;
@@ -80,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         msOfCapture = findViewById(R.id.msOfCapture);
         bufferClear = findViewById(R.id.bufferClear);
         mmOfTravel = findViewById(R.id.mmOfTravel);
+        MMPerPhoto = findViewById(R.id.MMPerPhoto);
+        VideoSeconds = findViewById(R.id.VideoSeconds);
         photo = findViewById(R.id.photo);
         photoCount = findViewById(R.id.photoCount);
         photoProgressBar = findViewById(R.id.photoProgressBar);
@@ -115,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
                             for(String dataSlice:dataSlices) {
                                 String dataFlag = Character.toString(dataSlice.charAt(0)); //takes first letter
                                 String data = dataSlice.substring(1); //takes rest of sentence
+
+                                if (dataFlag.equals("V"))
+                                    VideoSeconds.setText(data.toString().trim());
+                                if (dataFlag.equals("M"))
+                                    MMPerPhoto.setText(data.toString().trim());
                                 if (dataFlag.equals("S"))
                                     ShutterSpeed.setText(data.toString().trim());
                                 if (dataFlag.equals("T"))
@@ -129,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 if (dataFlag.equals("C")) {
                                     photoCount.setText(data.toString().trim());
-                                    photoProgressBar.setMax(Integer.parseInt(data.toString().trim()));
+
+                                    photoProgressBar.setMax(Integer.parseInt(data.toString().trim().substring(0, data.toString().trim().length() - 3)));
                                 }
                                 if (dataFlag.equals("R")) {
                                     if (Integer.parseInt(data.toString().trim()) == 0) {

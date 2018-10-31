@@ -1,6 +1,6 @@
 // defines pins numbers
-const int stepPin = 9; 
-const int dirPin = 8; 
+const int stepPin = 10; 
+const int dirPin = 9; 
 const int shutterPin = 2;
 const int ledPin = 13;
 
@@ -9,7 +9,7 @@ int incomingByte = 0;   // for incoming serial data
 int shutterSpeed = 200;
 int bufferClear = 3000;
 int shakeSettle = 1000;
-int stepsPerMM = 1;
+int stepsPerMM = 4;
 float msOfCapture = 60000;
 int mmOfTravel = 8000;
 int isRunning = 0;
@@ -83,7 +83,7 @@ void parseData(){
   }
 
   switch (dataFlag) {
-    case 'T':// Time to capture in mins
+    case 'T':// Time to capture in seconds
       msOfCapture = theData.toFloat();
       break;
     case 'S':// Shutter speed in ms
@@ -105,8 +105,8 @@ void parseData(){
       break;
 
   }
-        sendDataRefresh();
-
+  //send an update
+  sendDataRefresh();
 }
 
 void sendData(String flag, String data){
@@ -122,6 +122,8 @@ void sendDataRefresh(){
   sendData("B",String(bufferClear));
   sendData("D",String(mmOfTravel));
   sendData("L",String(totalSteps));
+  sendData("V",String(videoLength));
+  sendData("A",String(stepsPerPhoto));
 }
   
 void loop() {
