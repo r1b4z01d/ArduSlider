@@ -1,4 +1,4 @@
-*ArduSlead
+*ArduSlider
 ** Arduino:
 *** API:
 The arduino expects each api call to consist of a letter (flag), set of numbers and a charige return. Example: B1000/n
