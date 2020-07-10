@@ -38,15 +38,15 @@ void takePhoto(){
     digitalWrite(shutterPin,LOW); 
     digitalWrite(ledPin,LOW); 
     delay(200);
-    //Serial.print("Taking Photo Number: "); 
-    //Serial.println(photo);
+    Serial.print("Taking Photo Number: "); 
+    Serial.println(photo);
     sendData("P",String(photo));
 }
 
 void moveCamera(){
-    //Serial.print("Moving the camera ");
-    //Serial.print(stepsPerPhoto);
-    //Serial.println(" steps.");
+    Serial.print("Moving the camera ");
+    Serial.print(stepsPerPhoto);
+    Serial.println(" steps.");
     //set motor direction 
     digitalWrite(dirPin,HIGH);
     //move the motor
@@ -55,12 +55,12 @@ void moveCamera(){
       delayMicroseconds(500); 
       digitalWrite(stepPin,LOW); 
       delayMicroseconds(500);
-      //Serial.print("Moving step:");
-      //Serial.println(steps);
+      Serial.print("Moving step:");
+      Serial.println(steps);
       totalSteps++;
       delayMicroseconds(1000);
     }
-    //Serial.println("Waiting for the shake to settle.");
+    Serial.println("Waiting for the shake to settle.");
     sendData("L",String(totalSteps));
     delay(shakeSettle);
 }
