@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:text="Status:"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:text=""
+                android:id="@+id/bluetoothStatus"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_centerHorizontal="true"/>
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/UserControls">
+
+        <CheckBox
+            android:id="@+id/checkboxLED1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:text="Running"
+            android:textColorHighlight="#D357E8"
+            android:textColorLink="#9A00B5"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Capture Time:"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/msOfCapture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:ems="10"
+                android:inputType="number"
+                android:text="msOfCapture" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Shutter Speed:"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/shutterSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:text="ShutterSpeed" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Buffer Clear:"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="bold" />
+            <EditText
+            android:id="@+id/bufferClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="bufferClear" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Travel Distance:"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/mmOfTravel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:text="mmOfTravel" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MM Per Photo:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/MMPerPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Video Length (Seconds):"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/VideoSeconds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:text="0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="0dp"
+                android:paddingRight="0dp"
+                android:text="Photo: "
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="0dp"
+                android:paddingRight="0dp"
+                android:text="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="0dp"
+                android:paddingRight="0dp"
+                android:text=" of " />
+
+            <TextView
+                android:id="@+id/photoCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="0dp"
+                android:paddingRight="0dp"
+                android:text="0" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/photoProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="15px"
+            android:layout_gravity="fill_horizontal" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="265dp"
+            app:srcCompat="@mipmap/ic_launcher_foreground" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/colorAccent"
+                android:text="BT ON"
+                android:id="@+id/on"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:text="BT OFF"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
+                android:id="@+id/off" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Show paired Devices"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:id="@+id/PairedBtn" />
+
+        </LinearLayout>
+
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/devicesListView"
+            android:choiceMode="singleChoice"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:layout_below="@+id/PairedBtn"
+            android:layout_alignRight="@+id/off"
+            android:layout_alignEnd="@+id/off" >
+
+        </ListView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
